@@ -1,12 +1,9 @@
-// Login.tsx avec hook personnalisé
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../../services/api";
-import { useRecaptcha } from "../hooks/useRecaptcha";
 
 export function LoginUser() {
     const navigate = useNavigate();
-    const { recaptchaLoaded, getRecaptchaToken } = useRecaptcha();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
@@ -28,21 +25,13 @@ export function LoginUser() {
         setError('');
 
         try {
-            // Obtenir le token reCAPTCHA
-            const recaptchaToken = await getRecaptchaToken('login');
-
-            // Préparer les données avec le token
-            const requestData = {
-                ...formData,
-                recaptchaToken
-            };
-
-            const response = await api.post('/users/login', requestData);
+            const response = await api.post('/users/login', formData);
             
             // Stocker le token ET les données utilisateur
             if (response.data.token) {
                 localStorage.setItem('authToken', response.data.token);
                 
+                // Stocker les données utilisateur si disponibles
                 if (response.data.user) {
                     localStorage.setItem('userData', JSON.stringify(response.data.user));
                 }
@@ -52,16 +41,11 @@ export function LoginUser() {
             window.dispatchEvent(new Event('authChange'));
             
             // Redirection vers la page d'accueil
-            navigate('/accueil');
+            navigate('/accueil'); // ✅ Correction : '/acceuil' pas '/accueil'
             
         } catch (error: any) {
             console.error('Erreur connexion:', error);
-            
-            if (error.message?.includes('reCAPTCHA')) {
-                setError('Erreur de sécurité. Veuillez rafraîchir la page.');
-            } else {
-                setError(error.response?.data?.message || 'Email ou mot de passe incorrect');
-            }
+            setError(error.response?.data?.message || 'Email ou mot de passe incorrect');
         } finally {
             setLoading(false);
         }
@@ -110,19 +94,13 @@ export function LoginUser() {
                             />
                         </div>
 
-                        {/* Message reCAPTCHA */}
-                        <div className="text-xs text-center text-gray-500">
-                            Protégé par reCAPTCHA
-                        </div>
-
                         <div className="form-control mt-6">
                             <button 
                                 type="submit" 
                                 className="btn btn-primary"
-                                disabled={loading || !recaptchaLoaded}
+                                disabled={loading}
                             >
                                 {loading ? 'Connexion...' : 'Se connecter'}
-                                {!recaptchaLoaded && ' (Chargement sécurité...)'}
                             </button>
                         </div>
                     </form>
