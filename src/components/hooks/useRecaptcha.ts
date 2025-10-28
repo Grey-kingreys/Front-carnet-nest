@@ -1,8 +1,5 @@
 // hooks/useRecaptcha.ts
 import { useState, useEffect, useCallback } from 'react';
-import dotenv from 'dotenv';
-dotenv.config();
-
 
 declare global {
   interface Window {
@@ -23,11 +20,18 @@ export const useRecaptcha = () => {
             }
 
             const script = document.createElement('script');
+            // SUPPRIMEZ dotenv et utilisez directement process.env
             script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`;
             script.async = true;
             script.defer = true;
-            script.onload = () => setRecaptchaLoaded(true);
-            script.onerror = () => console.error('Erreur chargement reCAPTCHA');
+            script.onload = () => {
+                console.log('✅ reCAPTCHA chargé avec succès');
+                setRecaptchaLoaded(true);
+            };
+            script.onerror = () => {
+                console.error('❌ Erreur chargement reCAPTCHA');
+                setRecaptchaLoaded(false);
+            };
             document.head.appendChild(script);
         };
 
@@ -47,8 +51,10 @@ export const useRecaptcha = () => {
                         process.env.REACT_APP_RECAPTCHA_SITE_KEY, 
                         { action }
                     );
+                    console.log('🔐 Token reCAPTCHA généré:', token ? 'OUI' : 'NON');
                     resolve(token);
                 } catch (error) {
+                    console.error('❌ Erreur génération token reCAPTCHA:', error);
                     reject(error);
                 }
             });
