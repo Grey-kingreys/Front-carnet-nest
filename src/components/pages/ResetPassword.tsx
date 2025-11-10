@@ -47,9 +47,6 @@ export function ResetPassword() {
 
         try {
             const response = await api.post(`/users/resetpassword/${token}`, formData);
-            console.log('Réponse reset password:', response);
-            
-            // ✅ Marquer comme succès
             setSuccess(true);
             
             // ✅ Optionnel : Redirection après un délai
@@ -58,7 +55,6 @@ export function ResetPassword() {
             // }, 3000);
             
         } catch (error: any) {
-            console.error('Erreur réinitialisation:', error);
             setError(error.response?.data?.message || 'Une erreur est survenue. Veuillez réessayer.');
         } finally {
             setLoading(false);

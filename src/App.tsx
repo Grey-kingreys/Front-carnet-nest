@@ -19,6 +19,8 @@ import { EditProfile } from './components/pages/EditProfile'
 import { AuthProvider } from './components/Contexts/AuthContext'
 import { ForgotPassword } from './components/pages/ForgotPassword'
 import { ResetPassword } from './components/pages/ResetPassword'
+import { AdminPage } from './components/pages/AdminPage'
+import { Conversations } from './components/pages/Conversations'
 
 function LoadingFallback() {
   return (
@@ -142,6 +144,19 @@ const router = createBrowserRouter([
               });
               return response.data;
             }
+          },
+          {
+            path: "admin",
+            element: <AdminPage />,
+          }
+          ,
+          {
+            path: "conversations",
+            element: (
+              <ProtectedRoute>
+                <Conversations />
+              </ProtectedRoute>
+            ),
           }
         ]
     }

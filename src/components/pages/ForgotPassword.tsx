@@ -27,10 +27,7 @@ export function ForgotPassword() {
         setSuccess(false);
 
         try {
-            const response = await api.post('/users/resetpassword', formData);
-            console.log('Réponse reset password:', response);
-            
-            // ✅ Marquer comme succès
+            await api.post('/users/resetpassword', formData);
             setSuccess(true);
             
             // ✅ Optionnel : Redirection après un délai
@@ -39,7 +36,6 @@ export function ForgotPassword() {
             // }, 3000);
             
         } catch (error: any) {
-            console.error('Erreur réinitialisation:', error);
             setError(error.response?.data?.message || 'Une erreur est survenue. Veuillez réessayer.');
         } finally {
             setLoading(false);

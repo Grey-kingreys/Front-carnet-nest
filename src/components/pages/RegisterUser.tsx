@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../../services/api";
+import { useAuth } from "../hooks/useAuth";
 
 export function RegisterUser() {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
@@ -44,14 +46,16 @@ export function RegisterUser() {
             const { confirmPassword, ...userData } = formData;
             const response = await api.post('/users/create', userData);
             
-            // Stocker le token si l'API le retourne
-            if (response.data.token) {
-                localStorage.setItem('authToken', response.data.token);
+            // Utiliser la fonction login du contexte d'authentification
+            if (response.data.token && response.data.user) {
+                login(response.data.token, response.data.user);
+                // Attendre un court instant pour laisser l'interface se mettre à jour
+                await new Promise(resolve => setTimeout(resolve, 100));
+                navigate('/accueil', { replace: true });
+            } else {
+                throw new Error('Réponse inattendue du serveur');
             }
-            
-            navigate('/'); // Redirection après succès
         } catch (error: any) {
-            console.error('Erreur inscription:', error);
             setError(error.response?.data?.message || 'Erreur lors de l\'inscription');
         } finally {
             setLoading(false);

@@ -47,7 +47,7 @@ export function UserProfile() {
                 });
                 
             } catch (error) {
-                console.error('Erreur chargement stats:', error);
+                // Gestion silencieuse de l'erreur
             }
         };
 
@@ -84,7 +84,6 @@ const handleDeleteAccount = async () => {
     navigate('/accueil');
     
   } catch (error: any) {
-    console.error('Erreur suppression:', error);
     toast.error(error.response?.data?.message || 'Erreur lors de la suppression du compte');
   } finally {
     setLoading(false);
@@ -271,7 +270,7 @@ const handleDeleteAccount = async () => {
                                 </div>
                                 <div>
                                     <p className="font-semibold">Type de compte</p>
-                                    <p className="text-sm text-gray-600">Standard</p>
+                                    <p className="text-sm text-gray-600"> {userData.email === 'soulmamoudou0@gmail.com' ? 'admin' : 'standard'} </p>
                                 </div>
                             </div>
                         </div>

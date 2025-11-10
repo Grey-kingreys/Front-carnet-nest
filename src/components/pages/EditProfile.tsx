@@ -47,7 +47,7 @@ export function EditProfile() {
                 }
             });
             toast.success('Profil modifié avec succès');
-            navigate('/profile');
+            navigate(-1);
         } catch (error) {
             console.error('Erreur modification:', error);
             toast.error('Erreur lors de la modification du profil');

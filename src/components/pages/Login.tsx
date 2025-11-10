@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../../services/api";
+import { useAuth } from "../hooks/useAuth";
 
 export function LoginUser() {
+  const { login } = useAuth();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -27,22 +29,22 @@ export function LoginUser() {
         try {
             const response = await api.post('/users/login', formData);
             
-            // Stocker le token ET les données utilisateur
-            if (response.data.token) {
-                localStorage.setItem('authToken', response.data.token);
-                
-                // Stocker les données utilisateur si disponibles
-                if (response.data.user) {
-                    localStorage.setItem('userData', JSON.stringify(response.data.user));
-                }
+            if (!response.data.token) {
+                throw new Error('Aucun token reçu dans la réponse du serveur');
             }
+
+            // 1. Stocker le token et les données utilisateur
+            const { token, user: userData } = response.data;
             
-            // Déclencher la mise à jour globale
-            window.dispatchEvent(new Event('authChange'));
+            // 2. Mettre à jour le contexte d'authentification de manière synchrone
+            login(token, userData);
             
-            // Redirection vers la page d'accueil
-            navigate('/accueil'); // ✅ Correction : '/acceuil' pas '/accueil'
+            // 3. Attendre un court instant pour laisser le temps à l'UI de se mettre à jour
+            await new Promise(resolve => setTimeout(resolve, 100));
             
+            // 4. Rediriger vers la page d'accueil
+            navigate('/accueil', { replace: true });
+                
         } catch (error: any) {
             console.error('Erreur connexion:', error);
             setError(error.response?.data?.message || 'Email ou mot de passe incorrect');
