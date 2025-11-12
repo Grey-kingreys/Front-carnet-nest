@@ -4,7 +4,7 @@ let socket: Socket | null = null;
 
 export function getSocket() {
   if (!socket) {
-    socket = io('http://localhost:9000', {
+    socket = io((import.meta as any).env?.VITE_API_URL, {
       path: '/socket.io',
       transports: ['websocket', 'polling'],
       autoConnect: true,

@@ -22,7 +22,7 @@ interface Conversation {
 }
 
 export function Conversations() {
-  const { user: currentUser, loading: authLoading } = useAuth();
+  const { user: currentUser, isLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -226,7 +226,7 @@ export function Conversations() {
       <div className="flex-1 overflow-hidden flex">
       {!conversationId ? (
         <div className="w-full overflow-y-auto">
-          {authLoading ? (
+          {isLoading ? (
             <div className="flex justify-center items-center h-screen">
               <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
             </div>
