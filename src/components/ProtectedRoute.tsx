@@ -21,4 +21,5 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
     // Si l'utilisateur est authentifié, afficher le contenu protégé
     return <>{children}</>;
+    
 }
