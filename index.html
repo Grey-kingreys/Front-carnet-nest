@@ -1,13 +1,35 @@
 <!doctype html>
-<html lang="en" data-theme="night">
+<html lang="fr" data-theme="night">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carnet de contacts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="description" content="Gérez facilement vos contacts avec notre application de carnet d'adresses moderne et sécurisée" />
+    <meta name="keywords" content="contacts, carnet d'adresses, gestion de contacts, application web" />
+    <meta name="theme-color" content="#1e1e2e" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Carnet de Contacts - Gestionnaire de contacts en ligne" />
+    <meta property="og:description" content="Gérez facilement vos contacts avec notre application de carnet d'adresses moderne et sécurisée" />
+    <meta property="og:type" content="website" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" as="style" href="/src/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <title>Carnet de Contacts - Gestionnaire de contacts</title>
+    
+    <!-- Preload the main script with low priority -->
+    <link rel="modulepreload" href="/src/main.tsx" as="script" />
   </head>
   <body>
-    <div id="root" ></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <noscript>Vous devez activer JavaScript pour exécuter cette application.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx" defer></script>
   </body>
 </html>

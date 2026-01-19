@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Fichiers à ignorer
+Disallow: /api/
+Disallow: /private/
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://votre-domaine.com/sitemap.xml

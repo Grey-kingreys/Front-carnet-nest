@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+    <url>
+      <loc>https://votre-domaine.com/</loc>
+      <lastmod>2025-11-16</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.8</priority>
+    </url>
+    <url>
+      <loc>https://votre-domaine.com/accueil</loc>
+      <lastmod>2025-11-16</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.8</priority>
+    </url>
+    <url>
+      <loc>https://votre-domaine.com/login</loc>
+      <lastmod>2025-11-16</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.8</priority>
+    </url>
+    <url>
+      <loc>https://votre-domaine.com/register</loc>
+      <lastmod>2025-11-16</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.8</priority>
+    </url>
+    <url>
+      <loc>https://votre-domaine.com/contacts/all</loc>
+      <lastmod>2025-11-16</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.8</priority>
+    </url>
+    <url>
+      <loc>https://votre-domaine.com/profile</loc>
+      <lastmod>2025-11-16</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.8</priority>
+    </url>
+</urlset>
